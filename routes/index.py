@@ -6,7 +6,7 @@ from flask import (
     url_for,
     Blueprint,
     abort,
-)
+    send_from_directory)
 
 from models.user import User
 
@@ -43,7 +43,7 @@ def index():
 @main.route("/register", methods=['POST'])
 def register():
     # form = request.args
-    form = request.form
+    form = request.form.to_dict()
     # 用类函数来判断
     u = User.register(form)
     return redirect(url_for('.index'))
@@ -87,6 +87,16 @@ def not_found(e):
     return render_template('404.html')
 
 
+@main.route('/images/<filename>')
+def image(filename):
+    # 不要直接拼接路由，不安全，比如
+    # http://localhost:2000/images/..%5Capp.py
+    # path = os.path.join('images', filename)
+    # print('images path', path)
+    # return open(path, 'rb').read()
+    # if filename in os.listdir('images'):
+    #     return
+    return send_from_directory('images', filename)
 # def blueprint():
 #     main = Blueprint('index', __name__)
 #     main.route("/")(index)

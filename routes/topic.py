@@ -31,13 +31,13 @@ def detail(id):
     # http://localhost:3000/topic/1
     # m = Topic.one(id=id)
     m = Topic.get(id)
-
+    u = current_user()
     # 不应该放在路由里面
     # m.views += 1
     # m.save()
 
     # 传递 topic 的所有 reply 到 页面中
-    return render_template("topic/detail.html", topic=m)
+    return render_template("topic/detail.html", topic=m, user=u)
 
 
 @main.route("/add", methods=["POST"])

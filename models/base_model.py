@@ -6,6 +6,7 @@ from sqlalchemy import Column, Integer, String
 
 db = SQLAlchemy()
 
+
 def utctime():
     return int(time.time())
 

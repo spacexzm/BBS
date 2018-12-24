@@ -3,6 +3,7 @@ import time
 from flask import Flask
 # from flask_admin import Admin
 # from flask_admin.contrib.sqla import ModelView
+from flask_migrate import Migrate
 
 import config
 
@@ -63,7 +64,7 @@ def configured_app():
         secret.database_password
     )
     db.init_app(app)
-
+    migrate = Migrate(app, db)
 
     # module = __import__('routes.index')
     # b = getattr(getattr(module, 'index'), 'blueprint')()

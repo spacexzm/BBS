@@ -1,23 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>bbs club test</title>
-    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/css/style.css">
-    {#
-    <link rel="stylesheet" href="/static/lib/editor/editor.css">
-    <link rel="stylesheet" href="/static/lib/webuploader/webuploader.css">
-    <script src="/static/lib/jquery-3.0.0.min.js"></script>
-    <script src="/static/lib/markdownit.js"></script>
-    <script src="/static/lib/webuploader/webuploader.withoutimage.js"></script>
-    <script src="/static/lib/editor/editor.js"></script>
-    <script src="/static/lib/editor/ext.js"></script>
-    #}
-    <link href="//cdn.bootcss.com/prism/1.8.0/themes/prism.css" rel="stylesheet">
-</head>
-<body>
-<div id="main">
+{% extends "topic/base.html" %}
+
+{% block title %}
+    {{ topic.title }}
+{% endblock %}
+
+{% block content %}
     <div id="content">
         <div class='panel'>
             <div class='header topic_header'>
@@ -47,9 +34,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class='panel'>
+        <div class='panel'>
         <div class='header'>
             <span class='col_fade'>
                 <!-- 过滤器 -->
@@ -83,67 +68,75 @@
             </div>
         {% endfor %}
     </div>
-    <div>
-        <form action="{{ url_for('gua_reply.add') }}" method="post">
-            <input type="hidden" name="topic_id" value="{{ topic.id }}">
-            <textarea name="content"></textarea>
-            <button>添加回复</button>
-        </form>
+        <div class="panel">
+            <div class="header">
+                <span class="col_fade">添加回复</span>
+            </div>
+            <div id="comment_form">
+                <form action="{{ url_for('gua_reply.add') }}" method="post">
+                    <input type="hidden" name="topic_id" value="{{ topic.id }}">
+                    <textarea name="content"></textarea>
+                    <button>添加回复</button>
+                </form>
+            </div>
+        </div>
     </div>
-</div>
-<script src="https://cdn.bootcss.com/marked/0.3.19/marked.min.js"></script>
-<script src="https://cdn.bootcss.com/prism/1.13.0/prism.js"></script>
-<script src="https://cdn.bootcss.com/prism/1.13.0/plugins/autoloader/prism-autoloader.min.js"></script>
-<script>
-    var e = function (sel) {
-        return document.querySelector(sel)
-    }
+{% endblock %}
 
-    var es = function (sel) {
-        return document.querySelectorAll(sel)
-    }
-
-    var markContents = function () {
-        // markdown -> html 的处理放在高亮前面
-        // 因为高亮是针对 html 格式的
-        // lang -> language 不需要转 prism 自动转了
-        var contentDivs = es('.markdown-text')
-        for (var i = 0; i < contentDivs.length; i++) {
-            var contentDiv = contentDivs[i]
-            console.log('pre marked', contentDiv.textContent, contentDiv.innerHTML)
-            var content = marked(contentDiv.textContent)
-            console.log('after marked', content)
-            contentDiv.innerHTML = content
+{% block script %}
+    <script src="https://cdn.bootcss.com/marked/0.3.19/marked.min.js"></script>
+    <script src="https://cdn.bootcss.com/prism/1.13.0/prism.js"></script>
+    <script src="https://cdn.bootcss.com/prism/1.13.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script>
+        var e = function (sel) {
+            return document.querySelector(sel)
         }
-    }
 
-    var highlight = function () {
-        // 自动加载对应的语言 不然要手动加入各个语言的 js
-        Prism.plugins.autoloader.languages_path = 'https://cdn.bootcss.com/prism/1.13.0/components/'
-    }
+        var es = function (sel) {
+            return document.querySelectorAll(sel)
+        }
 
-    var registerTimer = function () {
-        setInterval(function () {
-            var times = es('.gua-time')
-            for (var i = 0; i < times.length; i++) {
-                var t = times[i]
-                var time = Number(t.dataset.created_time)
-                var now = Math.floor(new Date() / 1000)
-                var delta = now - time
-                var s = `${delta} 秒前`
-                t.innerText = s
+        var markContents = function () {
+            // markdown -> html 的处理放在高亮前面
+            // 因为高亮是针对 html 格式的
+            // lang -> language 不需要转 prism 自动转了
+            var contentDivs = es('.markdown-text')
+            for (var i = 0; i < contentDivs.length; i++) {
+                var contentDiv = contentDivs[i]
+                console.log('pre marked', contentDiv.textContent, contentDiv.innerHTML)
+                var content = marked(contentDiv.textContent)
+                console.log('after marked', content)
+                contentDiv.innerHTML = content
             }
-        }, 1000)
-    }
+        }
 
-    var __main = function () {
-        markContents()
-        highlight()
-        registerTimer()
-    }
+        var highlight = function () {
+            // 自动加载对应的语言 不然要手动加入各个语言的 js
+            Prism.plugins.autoloader.languages_path = 'https://cdn.bootcss.com/prism/1.13.0/components/'
+        }
 
-    __main()
+        var registerTimer = function () {
+            setInterval(function () {
+                var times = es('.gua-time')
+                for (var i = 0; i < times.length; i++) {
+                    var t = times[i]
+                    var time = Number(t.dataset.created_time)
+                    var now = Math.floor(new Date() / 1000)
+                    var delta = now - time
+                    var s = `${delta} 秒前`
+                    t.innerText = s
+                }
+            }, 1000)
+        }
 
-</script>
-</body>
-</html>
+        var __main = function () {
+            markContents()
+            highlight()
+            registerTimer()
+        }
+
+        __main()
+
+    </script>
+{% endblock %}
+

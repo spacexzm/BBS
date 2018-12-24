@@ -26,10 +26,6 @@ def generate_fake_date():
     )
     u = User.register(form)
 
-    md = """markdown text
-markdown text
-markdown text
-    """
 
     with open('markdown_demo.md', encoding='utf8') as f:
         content = f.read()
@@ -43,5 +39,5 @@ markdown text
 if __name__ == '__main__':
     app = configured_app()
     with app.app_context():
-        reset_database()
+        # reset_database()
         generate_fake_date()

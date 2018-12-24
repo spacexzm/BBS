@@ -1,77 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>bbs club</title>
-    <!--<link rel="stylesheet" href="/static/css/bootstrap.min.css">-->
-    <link rel="stylesheet" href="/static/css/style.css">
-    <!--<link rel="stylesheet" href="/static/lib/editor/editor.css">-->
-    <!--<link rel="stylesheet" href="/static/lib/webuploader/webuploader.css">-->
-    <!--<script src="/static/lib/jquery-3.0.0.min.js"></script>-->
-    <!--<script src="/static/lib/markdownit.js"></script>-->
-    <!--<script src="/static/lib/webuploader/webuploader.withoutimage.js"></script>-->
-    <!--<script src="/static/lib/editor/editor.js"></script>-->
-    <!--<script src="/static/lib/editor/ext.js"></script>-->
-</head>
-<body>
-<div id="main">
-    <div id="sidebar">
-        {% if user %}
-            <div class='panel'>
-                <div class='header'>
-                    <span class='col_fade'>个人信息</span>
-                </div>
-                <div class='inner'>
-                    <div class='user_card'>
-                        <div>
-                            <a class='user_avatar' href="{{ url_for('gua_user.user', username=user.username) }}">
-                                <img src="https://avatars1.githubusercontent.com/u/33437599?v=4&amp;s=120"
-                                     title="{{ user.username }}"/>
-                            </a>
-                            <span class='user_name'><a class='dark'
-                                                       href="{{ user.username }}">{{ user.username }}</a></span>
+{% extends "topic/base.html" %}
 
-                            <div class='board clearfix'>
-                                <div class='floor'>
-                                    <span class='big'>积分: 0 </span>
-                                </div>
-                            </div>
-                            <div class="space clearfix"></div>
-                            <span class="signature">
-                                “
+{% block title %}
+论坛主页
+{% endblock %}
 
-                                    这家伙很懒，什么个性签名都没有留下。
-
-                                ”
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% else %}
-            <div class='panel'>
-                <div class='inner'>
-                    <p>gua bbs</p>
-                    <div>
-                        您可以
-                        <a href='{{ url_for('index.index') }}'>登录</a>
-                        或
-                        <a href='{{ url_for('index.index') }}'>注册</a>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-
-
-        <div class="panel">
-            <div class="inner">
-                <a href="{{ url_for('gua_topic.new') }}" class="create_topic_btn">
-                    <span class="span-success">发布话题xxxxxxxxxxxxxxxx</span>
-                </a>
-            </div>
+{% block sidebar %}
+    {{ super() }}
+    <div class="panel">
+        <div class="inner">
+            <a href="/topic/new?board_id={{ bid }}" class="create_topic_btn">
+                <span class="span-success">发布话题</span>
+            </a>
         </div>
-
     </div>
+{% endblock %}
+
+{% block content %}
     <div id="content">
         <div class="panel">
             <div class="inner post">
@@ -92,8 +36,22 @@
                 </div>
             </div>
         </div>
+        <div class="panel">
+            <div class="header">
+                <span class="col_fade">添加回复</span>
+            </div>
+            <div id="comment_form">
+                <form action="{{ url_for('gua_reply.add') }}" method="post">
+                    <input type="hidden" name="topic_id" value="">
+                    <textarea name="content"></textarea>
+                    <button>添加回复</button>
+                </form>
+            </div>
+        </div>
     </div>
-</div>
-</body>
-<!--<script src="/static/js/test.js"></script>-->
-</html>
+{% endblock %}
+
+
+
+
+

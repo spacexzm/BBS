@@ -5,23 +5,23 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- meta -->
 
-{#    <meta name="description" content="CNode：Node.js专业中文社区">#}
-{#    <meta name="viewport" content="width=device-width, initial-scale=1">#}
-{#    <meta name="keywords" content="nodejs, node, express, connect, socket.io">#}
+    {#    <meta name="description" content="CNode：Node.js专业中文社区">#}
+    {#    <meta name="viewport" content="width=device-width, initial-scale=1">#}
+    {#    <meta name="keywords" content="nodejs, node, express, connect, socket.io">#}
     <!-- see http://smerity.com/articles/2013/where_did_all_the_http_referrers_go.html -->
-{#    <meta name="referrer" content="always">#}
+    {#    <meta name="referrer" content="always">#}
 
 
-{#    <meta name="author" content="EDP@TaoBao">#}
+    {#    <meta name="author" content="EDP@TaoBao">#}
 
 
-{#    <meta property="wb:webmaster" content="617be6bd946c6b96">#}
+    {#    <meta property="wb:webmaster" content="617be6bd946c6b96">#}
 
 
-{#    <link title="RSS" type="application/rss+xml" rel="alternate" href="https://cnodejs.org/rss">#}
+    {#    <link title="RSS" type="application/rss+xml" rel="alternate" href="https://cnodejs.org/rss">#}
 
 
-{#    <link rel="icon" href="https://static2.cnodejs.org/public/images/cnode_icon_32.png" type="image/x-icon">#}
+    {#    <link rel="icon" href="https://static2.cnodejs.org/public/images/cnode_icon_32.png" type="image/x-icon">#}
 
 
     <!-- style -->
@@ -29,14 +29,14 @@
 
 
     <!-- scripts -->
-{#    <script async="" src="./@alsotang 的个人主页 - CNode技术社区_files/analytics.js"></script>#}
-{#    <script src="./@alsotang 的个人主页 - CNode技术社区_files/index.min.f7c13f64.min.js"></script>#}
+    {#    <script async="" src="./@alsotang 的个人主页 - CNode技术社区_files/analytics.js"></script>#}
+    {#    <script src="./@alsotang 的个人主页 - CNode技术社区_files/index.min.f7c13f64.min.js"></script>#}
 
 
     <title>{{ user.username }} 的个人主页</title>
 
-{#    <meta content="_csrf" name="csrf-param">#}
-{#    <meta content="IccY7Fng-QP83bmpxZvJ4Qxd9R5soC_rz3PQ" name="csrf-token">#}
+    {#    <meta content="_csrf" name="csrf-param">#}
+    {#    <meta content="IccY7Fng-QP83bmpxZvJ4Qxd9R5soC_rz3PQ" name="csrf-token">#}
 </head>
 <body>
 
@@ -51,7 +51,7 @@
             </div>
             <div class="inner userinfo">
                 <div class="user_big_avatar">
-                    <img src="https://avatars1.githubusercontent.com/u/33437599?v=4&s=120" class="user_avatar" title="{{ user.username }}">
+                    <img src="{{ user.image }}" class="user_avatar" title="{{ user.username }}">
                 </div>
                 <a class="dark">{{ user.username }}</a>
 
@@ -68,18 +68,18 @@
                 <div class="cell">
 
                     <a class="user_avatar pull-left" href="{{ url_for('gua_user.user', username=user.username) }}">
-                        <img src="https://avatars1.githubusercontent.com/u/33437599?v=4&s=120" class="user_avatar" title="{{ user.username }}">
+                        <img src="{{ user.image }}" class="user_avatar" title="{{ user.username }}">
                     </a>
 
                     <span class="reply_count pull-left">
-    <span class="count_of_replies" title="回复数">
-      {{ topic.replies() | count }}
-    </span>
-    <span class="count_seperator">/</span>
-    <span class="count_of_visits" title="点击数">
-      {{ topic.views }}
-    </span>
-  </span>
+                        <span class="count_of_replies" title="回复数">
+                            {{ topic.replies() | count }}
+                        </span>
+                        <span class="count_seperator">/</span>
+                        <span class="count_of_visits" title="点击数">
+                            {{ topic.views }}
+                        </span>
+                    </span>
 
 
                     <div class="topic_title_wrapper">
@@ -103,7 +103,7 @@
                 <div class="cell">
 
                     <a class="user_avatar pull-left" href="{{ url_for('gua_user.user', username=user.username) }}">
-                        <img src="https://avatars1.githubusercontent.com/u/33437599?v=4&s=120" class="user_avatar" title="{{ user.username }}">
+                        <img src="{{ user.image }}" class="user_avatar" title="{{ user.username }}">
                     </a>
 
                     <span class="reply_count pull-left">
@@ -126,7 +126,6 @@
                     </div>
                 </div>
             {% endfor %}
-
 
 
         </div>
