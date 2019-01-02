@@ -65,6 +65,11 @@ def login():
         return redirect(url_for('gua_topic.index'))
 
 
+@main.route("/logout")
+def logout():
+    session.pop('user_id')
+    return redirect(url_for('gua_topic.index'))
+
 @main.route('/profile')
 def profile():
     u = current_user()

@@ -22,7 +22,7 @@
 
                 {% if user %}
                     <li><a href="{{ url_for('gua_user.setting') }}">设置</a></li>
-                    <li><a href="/">退出</a></li>
+                    <li><a href="{{ url_for('index.logout') }}">退出</a></li>
                 {% else %}
                     <li><a href='/'>注册</a></li>
                     <li><a href='/'>登录</a></li>

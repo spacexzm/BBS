@@ -15,6 +15,8 @@ from models.topic import Topic
 from models.reply import Reply
 from models.user import User
 
+
+
 main = Blueprint('gua_user', __name__)
 
 @main.route('/<string:username>')
@@ -66,10 +68,6 @@ def change_password():
 def change_avatar():
     file: FileStorage = request.files['avatar']
 
-    # filename = file.filename
-    # ../../root/.ssh/authorized_keys
-    # images/../../root/.ssh/authorized_keys
-    # filename = secure_filename(file.filename)
     suffix = file.filename.split('.')[-1]
     filename = '{}.{}'.format(str(uuid.uuid4()), suffix)
     path = os.path.join('images', filename)
@@ -79,3 +77,5 @@ def change_avatar():
     User.update(u.id, image='/images/{}'.format(filename))
 
     return redirect(url_for('.setting'))
+
+
