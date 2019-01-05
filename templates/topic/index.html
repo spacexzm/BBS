@@ -4,12 +4,22 @@
 论坛主页
 {% endblock %}
 
+{% block style %}
+    {{ super() }}
+    <style>
+    .span-success:hover {
+        background-color: #02b5fb;
+        color: white;
+    }
+    </style>
+{% endblock %}
+
 {% block sidebar %}
     {{ super() }}
     <div class="panel">
         <div class="inner">
             <a href="/topic/new?board_id={{ bid }}" class="create_topic_btn">
-                <span class="span-success">发布话题</span>
+                <span class="span-success pure-button pure-button-primary">发布话题</span>
             </a>
         </div>
     </div>
@@ -17,9 +27,18 @@
 
 {% block content %}
     <div id="content">
-        <iframe src="//player.bilibili.com/player.html?aid=1811479&cid=2783581&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="500px"> </iframe>
         <div class="panel">
-            <div class="inner post">
+            <div class="header">
+
+                <a href="/topic?board_id=-1" class="topic-tab current-tab">全部</a>
+
+                {% for board in boards %}
+                    <a href="/topic?board_id={{ board.id }}" class="topic-tab">{{ board.title }}</a>
+                {% endfor %}
+                
+
+            </div>
+            <div class="inner no-padding">
                 <div class="topic_list">
                     {% for t in ms %}
                         <div class="cell">
@@ -35,18 +54,6 @@
                         </div>
                     {% endfor %}
                 </div>
-            </div>
-        </div>
-        <div class="panel">
-            <div class="header">
-                <span class="col_fade">添加回复</span>
-            </div>
-            <div id="comment_form">
-                <form action="{{ url_for('gua_reply.add') }}" method="post">
-                    <input type="hidden" name="topic_id" value="">
-                    <textarea name="content"></textarea>
-                    <button>添加回复</button>
-                </form>
             </div>
         </div>
     </div>

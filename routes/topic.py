@@ -6,7 +6,8 @@ from flask import (
     Blueprint,
 )
 
-from routes import current_user
+from models.board import Board
+from routes import *
 
 from models.topic import Topic
 
@@ -17,8 +18,13 @@ main = Blueprint('gua_topic', __name__)
 @main.route("/")
 def index():
     u = current_user()
-    ms = Topic.all()
-    return render_template("topic/index.html", ms=ms, user=u)
+    board_id = int(request.args.get('board_id', -1))
+    if board_id == -1:
+        ms = Topic.all()
+    else:
+        ms = Topic.all(board_id=board_id)
+    boards = Board.all()
+    return render_template("topic/index.html", ms=ms, user=u, boards=boards, bid=board_id)
 
 
 @main.route('/<int:id>')
@@ -50,5 +56,8 @@ def add():
 
 @main.route("/new")
 def new():
-    return render_template("topic/new.html")
+    board_id = int(request.args.get('board_id'))
+    boards = Board.all()
+    token = new_csrf_token()
+    return render_template("topic/new.html", boards=boards, token=token, bid=board_id)
 

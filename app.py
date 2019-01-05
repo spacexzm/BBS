@@ -3,8 +3,11 @@ import time
 from flask import Flask
 # from flask_admin import Admin
 # from flask_admin.contrib.sqla import ModelView
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
+from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-
+from admin import UserModelView, TopicModelView
 import config
 
 # web framework
@@ -15,6 +18,7 @@ from models.base_model import db
 from models.reply import Reply
 from models.topic import Topic
 from models.user import User
+from models.board import Board
 from routes import index
 from utils import log
 
@@ -30,6 +34,7 @@ from routes.index import main as index_routes
 from routes.topic import main as topic_routes
 from routes.reply import main as reply_routes
 from routes.user import main as user_routes
+from routes.message import main as mail_routes, mail
 from routes.index import not_found
 
 # app = Flask(__name__)
@@ -71,22 +76,49 @@ def configured_app():
     # log('index blueprint', b)
     # app.register_blueprint(b)
     # log('url map', app.url_map)
-    app.register_blueprint(index_routes)
-    app.register_blueprint(topic_routes, url_prefix='/topic')
-    app.register_blueprint(reply_routes, url_prefix='/reply')
-    app.register_blueprint(user_routes, url_prefix='/user')
+
 
     app.template_filter()(count)
     app.template_filter()(format_time)
     app.errorhandler(404)(not_found)
 
-    # admin = Admin(app, name='web19', template_mode='bootstrap3')
-    # admin.add_view(ModelView(User, db.session))
+    app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
+    admin = Admin(app, name='web19', template_mode='bootstrap3')
+    user_mv = UserModelView(User, db.session)
+    topic_mv = TopicModelView(Topic, db.session)
+
+    admin.add_view(user_mv)
+    admin.add_view(topic_mv)
+    admin.add_view(ModelView(Board, db.session))
+    admin.add_view(ModelView(Reply, db.session))
     # admin.add_view(ModelView(Topic, db.session))
     # admin.add_view(ModelView(Reply, db.session))
     # Add administrative views here
+    app.config['MAIL_SERVER'] = 'smtp.exmail.qq.com'
+    app.config['MAIL_PORT'] = 465
+    app.config['MAIL_USE_SSL'] = True
+    app.config['MAIL_USERNAME'] = config.admin_mail
+    app.config['MAIL_PASSWORD'] = secret.mail_password
 
+    mail.init_app(app)
+
+    register_routes(app)
     return app
+
+
+def register_routes(app):
+    """
+        在 flask 中，模块化路由的功能由 蓝图（Blueprints）提供
+        蓝图可以拥有自己的静态资源路径、模板路径（现在还没涉及）
+        用法如下
+        """
+    # 注册蓝图
+    # 有一个 url_prefix 可以用来给蓝图中的每个路由加一个前缀
+    app.register_blueprint(index_routes)
+    app.register_blueprint(topic_routes, url_prefix='/topic')
+    app.register_blueprint(reply_routes, url_prefix='/reply')
+    app.register_blueprint(user_routes, url_prefix='/user')
+    app.register_blueprint(mail_routes, url_prefix='/mail')
 
 
 # 运行代码

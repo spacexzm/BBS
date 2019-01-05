@@ -39,5 +39,5 @@ def generate_fake_date():
 if __name__ == '__main__':
     app = configured_app()
     with app.app_context():
-        # reset_database()
+        reset_database()
         generate_fake_date()

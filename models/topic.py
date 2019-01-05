@@ -13,6 +13,7 @@ class Topic(SQLMixin, db.Model):
     title = Column(Unicode(50), nullable=False)
     content = Column(UnicodeText, nullable=False)
     user_id = Column(Integer, nullable=False)
+    board_id = Column(Integer, nullable=False, default=0)
 
     @classmethod
     def add(cls, form, user_id):
