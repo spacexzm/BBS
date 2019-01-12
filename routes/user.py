@@ -16,7 +16,6 @@ from models.reply import Reply
 from models.user import User
 
 
-
 main = Blueprint('gua_user', __name__)
 
 @main.route('/<string:username>')

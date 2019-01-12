@@ -10,8 +10,6 @@ ufw allow 22
 ufw allow 80
 ufw allow 443
 ufw allow 465
-ufw allow 2000
-ufw allow 3000
 ufw default deny incoming
 ufw default allow outgoing
 ufw status verbose
