@@ -1,60 +1,42 @@
 {% extends "topic/base.html" %}
 
 {% block title %}
-论坛主页
-{% endblock %}
-
-{% block style %}
-    {{ super() }}
-    <style>
-    .span-success:hover {
-        background-color: #02b5fb;
-        color: white;
-    }
-    </style>
+    论坛主页
 {% endblock %}
 
 {% block sidebar %}
     {{ super() }}
-    <div class="panel">
+    <div class="box">
         <div class="inner">
             <a href="/topic/new?board_id={{ bid }}" class="create_topic_btn">
-                <span class="span-success pure-button pure-button-primary">发布话题</span>
+                <span class="btn btn-primary">发布话题</span>
             </a>
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
-    <div id="content">
-        <div class="panel">
-            <div class="header">
-
-                <a href="/topic?board_id=-1" class="topic-tab current-tab">全部</a>
-
-                {% for board in boards %}
-                    <a href="/topic?board_id={{ board.id }}" class="topic-tab">{{ board.title }}</a>
-                {% endfor %}
-                
-
-            </div>
-            <div class="inner no-padding">
-                <div class="topic_list">
-                    {% for t in ms %}
-                        <div class="cell">
-                            <div class="topic_title_wrapper">
-                                <a class="topic_title" href="{{ url_for('gua_topic.detail', id=t.id) }}">
-                                    {{ t.title }}
-                                </a>
-                                <span>{{ t.replies() | count }} / {{ t.views }}</span>
-                                {# count(t.replies()) #}
-                                {# <span>{{ t.reply_count() }} / {{ t.views }}</span> #}
-                                {#len(Reply.all(topic_id=t.id))#}
-                            </div>
-                        </div>
-                    {% endfor %}
+    <div class="box">
+        <div class="header inner">
+            <a href="/topic?board_id=-1" class="topic_tab current_tab">全部</a>
+            {% for board in boards %}
+                <a href="/topic?board_id={{ board.id }}" class="topic_tab">{{ board.title }}</a>
+            {% endfor %}
+        </div>
+        <div id="topiclist" class="">
+            {% for t in ms %}
+                <div class="cell">
+                    <div class="topic_title_wrapper">
+                        <a class="topic_title" href="{{ url_for('gua_topic.detail', id=t.id) }}">
+                            {{ t.title }}
+                        </a>
+                        <span>{{ t.replies() | count }} / {{ t.views }}</span>
+                        {# count(t.replies()) #}
+                        {# <span>{{ t.reply_count() }} / {{ t.views }}</span> #}
+                        {#len(Reply.all(topic_id=t.id))#}
+                    </div>
                 </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

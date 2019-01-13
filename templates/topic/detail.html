@@ -4,86 +4,112 @@
     {{ topic.title }}
 {% endblock %}
 
-{% block content %}
-    <div id="content">
-        <div class='panel'>
-            <div class='header topic_header'>
-                <span class="topic_full_title">
-                    {{ topic.title }}
-                </span>
-                <div class="changes">
-                    <span>
-                        发布于 {{ topic.created_time | format_time }}
-                    </span>
-                    <span>
-                        作者 <a href="{{ url_for('gua_user.user', username=topic.user().username ) }}">{{ topic.user().username }}</a>
-                        {# 作者 {{ User.one(id=topic.user_id).username }} #}
-                    </span>
-                    <span>
-                        {{ topic.views }} 次浏览
-                    </span>
-                    <span>
-                        来自 问答
-                    </span>
-                </div>
-            </div>
+{% block style %}
+    {{ super() }}
+    <link rel="stylesheet" href="https://unpkg.com/mditor@1.0.5/dist/css/mditor.min.css"/>
+{% endblock %}
 
-            <div class='inner topic'>
-                <div class='topic_content'>
-                    <div class="markdown-text">{{ topic.content }}</div>
-                </div>
-            </div>
+{% block sidebar %}
+    <div class="box">
+        <div class="header inner">
+            <span class="box_title">作者信息</span>
         </div>
-        <div class='panel'>
-        <div class='header'>
-            <span class='col_fade'>
-                <!-- 过滤器 -->
-                {{ topic.replies() | count }} 回复
-            </span>
-        </div>
-        {% for r in topic.replies() %}
-            {% set u = r.user() %}
-            <div class='cell reply_area reply_item'>
-                <div class='user_info'>
-                    <a class='dark reply_author'>
-                        {{ u.username }}
-                    </a>
-                    <a class="reply_time">
-                        {{ loop.index }}楼 / {{ loop.length }}楼 •
-                        <span class="gua-time" data-created_time="{{ r.created_time }}"></span>
-                    </a>
-                </div>
-                <div class='user_action'>
-                    <span>
-                        <i class="fa up_btn
-                          fa-thumbs-o-up
-                          invisible" title="喜欢"></i>
-                        <span class="up-count">
+        <div class='inner'>
+            <div class='user_card'>
+                <a href="{{ url_for('gua_user.user', username=topic.user().username) }}">
+                    <img class='user_avatar' src="{{ topic.user().image }}"
+                         title="{{ topic.user().username }}"/>
+                </a>
+                <span class='user_name'>
+                            <a href="{{ url_for('gua_user.user', username=topic.user().username) }}">{{ topic.user().username }}</a>
                         </span>
-                    </span>
+
+                <div class='board clearfix'>
+                    <div class='floor'>
+                        <span class='big'>积分: 0 </span>
+                    </div>
                 </div>
-                <div class='reply_content from-leiwei1991'>
-                    <div class="markdown-text">{{ r.content }}</div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-        <div class="panel">
-            <div class="header">
-                <span class="col_fade">添加回复</span>
-            </div>
-            <div id="comment_form">
-                <form action="{{ url_for('gua_reply.add') }}" method="post">
-                    <input type="hidden" name="topic_id" value="{{ topic.id }}">
-                    <textarea name="content"></textarea>
-                    <button>添加回复</button>
-                </form>
+                <div class="space clearfix"></div>
+                <span class="signature">"{{ topic.user().signature }}"</span>
             </div>
         </div>
     </div>
 {% endblock %}
 
+{% block content %}
+    <div class="box">
+        <div class='header inner'>
+            <h3>{{ topic.title }}</h3>
+            <div class="changes">
+                    <span>
+                        发布于 {{ topic.created_time | format_time }}
+                    </span>
+                <span>
+                        作者 <a
+                        href="{{ url_for('gua_user.user', username=topic.user().username ) }}">{{ topic.user().username }}</a>
+                    </span>
+                <span>
+                        {{ topic.views }} 次浏览
+                    </span>
+                <span>
+                        来自 问答
+                    </span>
+            </div>
+        </div>
+
+        <div class='inner topic'>
+            <div class='topic_content'>
+                <div class="markdown-text">{{ topic.content }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box">
+        <div class='header inner'>
+            <span class="box_title">
+                <!-- 过滤器 -->
+                {{ topic.replies() | count }} 回复
+            </span>
+        </div>
+        <div class="reply_list">
+            {% for r in topic.replies() %}
+                {% set u = r.user() %}
+                <div class='cell'>
+                    <div class='user_info'>
+                        <a class='dark reply_author'>
+                            {{ u.username }}
+                        </a>
+                        <a class="reply_time">
+                            {{ loop.index }}楼 / {{ loop.length }}楼 •
+                            <span class="gua-time" data-created_time="{{ r.created_time }}"></span>
+                        </a>
+                    </div>
+                    <div class='reply_content from--{{ r.user().username }}'>
+                        <div class="markdown-text">{{ r.content }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    <div class="box">
+        <div class="header inner">
+            <span class="col_fade">添加回复</span>
+        </div>
+        <div id="comment_form">
+            <form action="{{ url_for('gua_reply.add') }}" method="post">
+                <input type="hidden" name="topic_id" value="{{ topic.id }}">
+                <textarea id="editor" name="content"></textarea>
+                <button type="submit" class="btn btn-primary">添加回复</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
 {% block script %}
+    <script src="https://unpkg.com/mditor@1.0.5/dist/js/mditor.min.js"></script>
     <script src="https://cdn.bootcss.com/marked/0.3.19/marked.min.js"></script>
     <script src="https://cdn.bootcss.com/prism/1.13.0/prism.js"></script>
     <script src="https://cdn.bootcss.com/prism/1.13.0/plugins/autoloader/prism-autoloader.min.js"></script>
@@ -129,6 +155,14 @@
             }, 1000)
         }
 
+        var mditor = Mditor.fromTextarea(document.getElementById('editor'));
+
+        //获取或设置编辑器的值
+        mditor.on('ready', function () {
+            console.log(mditor.value);
+            mditor.value = '** hello **';
+        });
+
         var __main = function () {
             markContents()
             highlight()
@@ -138,5 +172,6 @@
         __main()
 
     </script>
+
 {% endblock %}
 
