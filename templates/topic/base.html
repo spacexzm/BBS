@@ -11,31 +11,31 @@
 <body>
 
 <!-- navbar -->
-{% block main %}
-    <div class="navbar navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/topic">SPACEBY BBS</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
+<div class="navbar navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/topic">SPACEBY BBS</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
 
-                <ul class="nav navbar-nav pull-right">
-                    {% if user %}
-                        <li><a href="{{ url_for('gua_user.setting') }}">设置</a></li>
-                        <li><a href="{{ url_for('index.logout') }}">退出</a></li>
-                    {% else %}
-                        <li><a href='/'>注册</a></li>
-                        <li><a href='/'>登录</a></li>
-                    {% endif %}
-                </ul>
-            </div>
+            <ul class="nav navbar-nav pull-right">
+                {% if user %}
+                    <li><a href="{{ url_for('gua_user.setting') }}">设置</a></li>
+                    <li><a href="{{ url_for('index.logout') }}">退出</a></li>
+                {% else %}
+                    <li><a href='/'>注册</a></li>
+                    <li><a href='/'>登录</a></li>
+                {% endif %}
+            </ul>
         </div>
     </div>
+</div>
+
+{% block main %}
     <div id="main" class="row">
         <div id="sidebar" class="col-md-4 col-md-push-8">
             {% block sidebar %}
@@ -75,20 +75,20 @@
                         </div>
                     {% endif %}
                 </div>
-            {% endblock %}
+            {% endblock sidebar %}
         </div>
 
         <div id="content" class="col-md-8 col-md-pull-4">
             {% block content %}
-            {% endblock %}
+            {% endblock content %}
         </div>
     </div>
-{% endblock %}
+{% endblock main %}
 
 
 {% block script %}
 
-{% endblock %}
+{% endblock script %}
 
 
 </body>

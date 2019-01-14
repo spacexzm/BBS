@@ -20,9 +20,16 @@ main = Blueprint('gua_user', __name__)
 
 @main.route('/<string:username>')
 def user(username):
-    u = User.one(username = username)
-    t = Topic.all(user_id = u.id)
-    r = Reply.all(user_id = u.id)
+    '''
+    :param c_u 当前主页查询用户
+    :param u 登录主页用户
+    :param username:
+    :return:
+    '''
+    c_u = User.one(username = username)
+    u = current_user()
+    t = Topic.all(user_id = c_u.id)
+    r = Reply.all(user_id = c_u.id)
     rt = []
     for v in r:
         reply_topic = Topic.one(id = v.topic_id)
@@ -30,7 +37,7 @@ def user(username):
             rt.append(reply_topic)
     t.reverse()
     rt.reverse()
-    return render_template('user.html', user = u, topics = t, reply_topics = rt)
+    return render_template('user.html', user = u, c_user = c_u, topics = t, reply_topics = rt)
 
 
 @main.route('/setting')

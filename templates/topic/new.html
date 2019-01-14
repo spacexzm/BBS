@@ -1,3 +1,86 @@
+{% extends "topic/base.html" %}
+
+{% block title %}
+    发布话题
+{% endblock %}
+
+{% block style %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/lib/editor/editor.css">
+    <link rel="stylesheet" href="/static/lib/webuploader/webuploader.css">
+{% endblock %}
+
+{% block sidebar %}
+    {{ super() }}
+    <div class="box">
+        <div class="header inner">
+            <span class="box_title">
+                markdown示例
+            </span>
+        </div>
+        <div class="inner">
+            <ol>
+                <li>### 单行的标题</li>
+                <li>**粗体**</li>
+                <li>`console.log('行内代码')`</li>
+                <li>```js\n code \n``` 标记代码块</li>
+                <li>[内容](链接)</li>
+                <li>![文字说明](图片链接)</li>
+            </ol>
+            <span class="inner"><a href="https://segmentfault.com/markdown" target="_blank">Markdown 文档</a></span>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="box">
+        <div class="header inner">
+            <span class="box_title">发布话题</span>
+        </div>
+        <div class="inner">
+            <form id="id_form_createtopic" method="post" action="{{ url_for('.add', token=token) }}">
+                <fieldset>
+                    <textarea autofocus class='form-control' id='title' name='title' rows='1'
+                              placeholder="标题字数 10 字以上"></textarea>
+                    <span class="tab-selector">选择版块：</span>
+                    <div class="form-group">
+                        <select name="board_id" id="id_board" class="form-control">
+                            {% for b in boards %}
+                                {% if bid == b.id %}
+                                    <option value="{{ b.id }}" selected>{{ b.title }}</option>
+                                {% else %}
+                                    <option value="{{ b.id }}">{{ b.title }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class='markdown_editor in_editor'>
+                        <div class='markdown_in_editor'>
+                                <textarea class='editor' name='content' rows='20'
+                                          placeholder='文章支持 Markdown 语法, 请注意标记代码'></textarea>
+                            <button class="btn btn-primary" type="submit">提交</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block script %}
+    <script src="/static/lib/jquery-3.0.0.min.js"></script>
+    <script src="/static/lib/markdownit.js"></script>
+    <script src="/static/lib/webuploader/webuploader.withoutimage.js"></script>
+    <script src="/static/lib/editor/editor.js"></script>
+    <script src="/static/lib/editor/ext.js"></script>
+    <script>
+        (function () {
+            var editor = new Editor();
+            editor.render($('.editor')[0]);
+        })();
+    </script>
+{% endblock %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +88,8 @@
     <title>bbs club</title>
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="/static/lib/editor/editor.css">
-    <link rel="stylesheet" href="/static/lib/webuploader/webuploader.css">
+    {#    <link rel="stylesheet" href="/static/lib/editor/editor.css">#}
+    {#    <link rel="stylesheet" href="/static/lib/webuploader/webuploader.css">#}
     <script src="/static/lib/jquery-3.0.0.min.js"></script>
     <script src="/static/lib/markdownit.js"></script>
     <script src="/static/lib/webuploader/webuploader.withoutimage.js"></script>
@@ -20,7 +103,8 @@
             <div class="inner post">
                 <form id="create_topic_form" method="post" action="{{ url_for('.add', token=token) }}">
                     <fieldset>
-                         <textarea autofocus class='span9' id='title' name='title' rows='1' placeholder="标题字数 10 字以上"></textarea>
+                        <textarea autofocus class='span9' id='title' name='title' rows='1'
+                                  placeholder="标题字数 10 字以上"></textarea>
                         <span class="tab-selector">选择版块：</span>
                         <select name="board_id" id="board" required>
                             {% for b in boards %}

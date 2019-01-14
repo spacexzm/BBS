@@ -1,3 +1,74 @@
+{% extends "topic/base.html" %}
+
+{% block title %}
+    {{ c_user.username }} 的个人主页
+{% endblock %}
+
+{% block content %}
+    <div class="box">
+        <div class="header inner">
+            <a href=""><span>主页</span></a>
+            <span> / {{ c_user.username }}</span>
+        </div>
+        <div class='inner'>
+            <div class='user_card'>
+                <a href="{{ url_for('gua_user.user', username=c_user.username) }}">
+                    <img class='user_avatar' src="{{ c_user.image }}"
+                         title="{{ c_user.username }}"/>
+                </a>
+                <span class='user_name'>
+                            <a href="{{ url_for('gua_user.user', username=c_user.username) }}">{{ c_user.username }}</a>
+                        </span>
+
+                <div class='board clearfix'>
+                    <div class='floor'>
+                        <span class='big'>积分: 0 </span>
+                    </div>
+                </div>
+                <div class="space clearfix"></div>
+                <span class="signature">"{{ c_user.signature }}"</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="header inner">
+            <span class="box_title">最近创建的话题</span>
+        </div>
+        <div class="inner">
+            {% for topic in topics %}
+                <div class="cell">
+                    <div class="topic_title_wrapper">
+                        <a class="topic_title" href="{{ url_for('gua_topic.detail', id=topic.id) }}">
+                            {{ topic.title }}
+                        </a>
+                        <span>{{ topic.replies() | count }} / {{ topic.views }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="header inner">
+            <span class="box_title">最近参与的话题</span>
+        </div>
+        <div class="inner">
+            {% for reply_topic in reply_topics %}
+                <div class="cell">
+                    <div class="topic_title_wrapper">
+                        <a class="topic_title" href="{{ url_for('gua_topic.detail', id=reply_topic.id) }}">
+                            {{ reply_topic.title }}
+                        </a>
+                        <span>{{ reply_topic.replies() | count }} / {{ reply_topic.views }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+{% endblock %}
+
 <!DOCTYPE html>
 <!-- saved from url=(0033)https://cnodejs.org/user/alsotang -->
 <html xmlns="http://www.w3.org/1999/xhtml">

@@ -129,10 +129,7 @@
             var contentDivs = es('.markdown-text')
             for (var i = 0; i < contentDivs.length; i++) {
                 var contentDiv = contentDivs[i]
-                console.log('pre marked', contentDiv.textContent, contentDiv.innerHTML)
                 var content = marked(contentDiv.textContent)
-                console.log('after marked', content)
-                contentDiv.innerHTML = content
             }
         }
 

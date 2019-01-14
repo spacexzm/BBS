@@ -58,6 +58,7 @@ def add():
 def new():
     board_id = int(request.args.get('board_id'))
     boards = Board.all()
+    u = current_user()
     token = new_csrf_token()
-    return render_template("topic/new.html", boards=boards, token=token, bid=board_id)
+    return render_template("topic/new.html", user=u, boards=boards, token=token, bid=board_id)
 

@@ -83,3 +83,13 @@ img.user_avatar {
     max-height: 48px;
     border-radius: 3px;
 }
+
+.form-group {
+    width: 150px;
+}
+
+.form-horizontal .form-group {
+    margin-right: 0;
+    margin-left: 0;
+}
+
