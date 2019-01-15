@@ -1,4 +1,4 @@
-{% extends "topic/base.html" %}
+{% extends "base.html" %}
 
 {% block title %}
     {{ topic.title }}
@@ -16,12 +16,12 @@
         </div>
         <div class='inner'>
             <div class='user_card'>
-                <a href="{{ url_for('gua_user.user', username=topic.user().username) }}">
+                <a href="{{ url_for('bbs_user.user', username=topic.user().username) }}">
                     <img class='user_avatar' src="{{ topic.user().image }}"
                          title="{{ topic.user().username }}"/>
                 </a>
                 <span class='user_name'>
-                            <a href="{{ url_for('gua_user.user', username=topic.user().username) }}">{{ topic.user().username }}</a>
+                            <a href="{{ url_for('bbs_user.user', username=topic.user().username) }}">{{ topic.user().username }}</a>
                         </span>
 
                 <div class='board clearfix'>
@@ -46,7 +46,7 @@
                     </span>
                 <span>
                         作者 <a
-                        href="{{ url_for('gua_user.user', username=topic.user().username ) }}">{{ topic.user().username }}</a>
+                        href="{{ url_for('bbs_user.user', username=topic.user().username ) }}">{{ topic.user().username }}</a>
                     </span>
                 <span>
                         {{ topic.views }} 次浏览
@@ -76,12 +76,12 @@
                 {% set u = r.user() %}
                 <div class='cell'>
                     <div class='user_info'>
-                        <a class='dark reply_author'>
+                        <a class='reply_author'>
                             {{ u.username }}
                         </a>
-                        <a class="reply_time">
+                        <a class="reply_info">
                             {{ loop.index }}楼 / {{ loop.length }}楼 •
-                            <span class="gua-time" data-created_time="{{ r.created_time }}"></span>
+                            <span class="reply_time" data-created_time="{{ r.created_time }}"></span>
                         </a>
                     </div>
                     <div class='reply_content from--{{ r.user().username }}'>
@@ -98,7 +98,7 @@
             <span class="col_fade">添加回复</span>
         </div>
         <div id="comment_form">
-            <form action="{{ url_for('gua_reply.add') }}" method="post">
+            <form action="{{ url_for('bbs_reply.add') }}" method="post">
                 <input type="hidden" name="topic_id" value="{{ topic.id }}">
                 <textarea id="editor" name="content"></textarea>
                 <button type="submit" class="btn btn-primary">添加回复</button>
@@ -130,6 +130,7 @@
             for (var i = 0; i < contentDivs.length; i++) {
                 var contentDiv = contentDivs[i]
                 var content = marked(contentDiv.textContent)
+                contentDiv.innerHTML = content
             }
         }
 
@@ -140,7 +141,7 @@
 
         var registerTimer = function () {
             setInterval(function () {
-                var times = es('.gua-time')
+                var times = es('.reply_time')
                 for (var i = 0; i < times.length; i++) {
                     var t = times[i]
                     var time = Number(t.dataset.created_time)

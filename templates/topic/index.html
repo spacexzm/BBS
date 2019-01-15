@@ -1,4 +1,4 @@
-{% extends "topic/base.html" %}
+{% extends "base.html" %}
 
 {% block title %}
     论坛主页
@@ -27,7 +27,7 @@
             {% for t in ms %}
                 <div class="cell">
                     <div class="topic_title_wrapper">
-                        <a class="topic_title" href="{{ url_for('gua_topic.detail', id=t.id) }}">
+                        <a class="topic_title" href="{{ url_for('bbs_topic.detail', id=t.id) }}">
                             {{ t.title }}
                         </a>
                         <span>{{ t.replies() | count }} / {{ t.views }}</span>

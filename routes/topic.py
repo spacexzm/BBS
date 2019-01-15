@@ -12,7 +12,7 @@ from routes import *
 from models.topic import Topic
 
 
-main = Blueprint('gua_topic', __name__)
+main = Blueprint('bbs_topic', __name__)
 
 
 @main.route("/")

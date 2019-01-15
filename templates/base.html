@@ -24,7 +24,7 @@
 
             <ul class="nav navbar-nav pull-right">
                 {% if user %}
-                    <li><a href="{{ url_for('gua_user.setting') }}">设置</a></li>
+                    <li><a href="{{ url_for('bbs_user.setting') }}">设置</a></li>
                     <li><a href="{{ url_for('index.logout') }}">退出</a></li>
                 {% else %}
                     <li><a href='/'>注册</a></li>
@@ -46,12 +46,12 @@
                     {% if user %}
                         <div class='inner'>
                             <div class='user_card'>
-                                <a href="{{ url_for('gua_user.user', username=user.username) }}">
+                                <a href="{{ url_for('bbs_user.user', username=user.username) }}">
                                     <img class='user_avatar' src="{{ user.image }}"
                                          title="{{ user.username }}"/>
                                 </a>
                                 <span class='user_name'>
-                            <a href="{{ url_for('gua_user.user', username=user.username) }}">{{ user.username }}</a>
+                            <a href="{{ url_for('bbs_user.user', username=user.username) }}">{{ user.username }}</a>
                         </span>
 
                                 <div class='board clearfix'>

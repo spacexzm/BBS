@@ -17,10 +17,6 @@ class SQLMixin(object):
 
     @classmethod
     def new(cls, form):
-        # form = dict(
-        #   username='test',
-        #   password='sss',
-        # )
         m = cls()
         for name, value in form.items():
             setattr(m, name, value)
@@ -31,10 +27,6 @@ class SQLMixin(object):
 
     @classmethod
     def update(cls, id, **kwargs):
-        # User.update(12, username='gua', password='123')
-        # u.username = 'test'
-        # db.session.add(u)
-        # db.session.commit()
         m = cls.query.filter_by(id=id).first()
         for name, value in kwargs.items():
             setattr(m, name, value)
@@ -75,24 +67,5 @@ class SQLMixin(object):
         db.session.commit()
 
 
-# class SimpleUser(SQLMixin, db.Model):
-#     # username: str
-#     username = Column(String(50), nullable=False)
-#     password = Column(String(50), nullable=False)
-#
-#     # def __init__(self):
-#     #     self.username = form.get('username', 'guest')
-#     #     self.password = 'xxx'
-#
-#
-# if __name__ == '__main__':
-#     db.create_all()
-#     form = dict(
-#         username='123',
-#         password='456',
-#     )
-#     u = SimpleUser.new(form)
-#     print(u)
-#     u = SimpleUser.one(username='123')
-#     print(u)
+
 

@@ -1,4 +1,4 @@
-{% extends "topic/base.html" %}
+{% extends "base.html" %}
 
 {% block title %}
     设置
@@ -24,7 +24,7 @@
         </div>
         <div class="inner">
             <form id="setting_form" class="form-horizontal"
-                  action="{{ url_for('gua_user.profile', token = token) }}" method="post">
+                  action="{{ url_for('bbs_user.profile', token = token) }}" method="post">
                 <div class="form-group">
                     <label id="id_username" for="id_input_username">用户名</label>
                     <input id="id_input_username" type="text" class="form-control" name="username"
@@ -47,7 +47,7 @@
         </div>
         <div class="inner">
             <form id="change_pass_form" class="form-horizontal"
-                  action="{{ url_for('gua_user.change_password', token = token) }}" method="post">
+                  action="{{ url_for('bbs_user.change_password', token = token) }}" method="post">
                 <div class="form-group">
                     <label for="id_input_oldpass">当前密码</label>
                     <input id="id_input_oldpass" type="password" class="form-control" name="old_pass">
@@ -69,7 +69,7 @@
         <div class="inner">
             <form id="change_avatar_form"
                   class="form-horizontal"
-                  action="{{ url_for('gua_user.change_avatar', token = token) }}"
+                  action="{{ url_for('bbs_user.change_avatar', token = token) }}"
                   enctype="multipart/form-data"
                   method="post"
             >

@@ -56,25 +56,25 @@ def login():
     print('login user <{}>'.format(u))
     if u is None:
         # 转到 topic.index 页面
-        return redirect(url_for('.index'))
+        return redirect(url_for('bbs_topic.index'))
     else:
         # session 中写入 user_id
         session['user_id'] = u.id
         # 设置 cookie 有效期为 永久
         session.permanent = True
-        return redirect(url_for('gua_topic.index'))
+        return redirect(url_for('bbs_topic.index'))
 
 
 @main.route("/logout")
 def logout():
     session.pop('user_id')
-    return redirect(url_for('gua_topic.index'))
+    return redirect(url_for('bbs_topic.index'))
 
 @main.route('/profile')
 def profile():
     u = current_user()
     if u is None:
-        return redirect(url_for('.index'))
+        return redirect(url_for('bbs_topic.index'))
     else:
         return render_template('profile.html', user=u)
 
@@ -94,20 +94,7 @@ def not_found(e):
 
 @main.route('/images/<filename>')
 def image(filename):
-    # 不要直接拼接路由，不安全，比如
-    # http://localhost:2000/images/..%5Capp.py
-    # path = os.path.join('images', filename)
-    # print('images path', path)
-    # return open(path, 'rb').read()
-    # if filename in os.listdir('images'):
-    #     return
+
     return send_from_directory('images', filename)
-# def blueprint():
-#     main = Blueprint('index', __name__)
-#     main.route("/")(index)
-#     main.route("/register", methods=['POST'])(register)
-#     main.route("/login", methods=['POST'])(login)
-#     main.route('/profile')(profile)
-#     main.route('/user/<int:id>')(user_detail)
-#
-#     return main
+
+
