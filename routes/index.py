@@ -7,6 +7,7 @@ from flask import (
     Blueprint,
     abort,
     send_from_directory)
+from flask.json import jsonify
 
 from models.user import User
 
@@ -51,24 +52,33 @@ def register():
 
 @main.route("/login", methods=['POST'])
 def login():
-    form = request.form
+    print('request in login')
+    form = request.json
     u = User.validate_login(form)
     print('login user <{}>'.format(u))
     if u is None:
-        # 转到 topic.index 页面
-        return redirect(url_for('bbs_topic.index'))
+        response = jsonify({'login': False, 'error': '登录失败，请检查账号和密码'})
+        response.status_code = 401
+        print('flask json response is:', response)
+        return response
     else:
         # session 中写入 user_id
         session['user_id'] = u.id
         # 设置 cookie 有效期为 永久
         session.permanent = True
-        return redirect(url_for('bbs_topic.index'))
+        url = url_for('bbs_topic.index')
+        print('redirect:',url)
+        response = jsonify({'login': True, 'path': 'topic'})
+        response.status_code = 200
+        print(response.status_code)
+        return response
 
 
 @main.route("/logout")
 def logout():
     session.pop('user_id')
     return redirect(url_for('bbs_topic.index'))
+
 
 @main.route('/profile')
 def profile():
