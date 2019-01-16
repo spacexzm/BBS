@@ -68,7 +68,7 @@
 {% endblock content %}
 
 {% block script %}
-    <script src="/static/lib/jquery-3.0.0.min.js"></script>
+    {{ super() }}
     <script src="/static/lib/markdownit.js"></script>
     <script src="/static/lib/webuploader/webuploader.withoutimage.js"></script>
     <script src="/static/lib/editor/editor.js"></script>
