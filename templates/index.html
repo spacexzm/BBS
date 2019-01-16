@@ -6,55 +6,7 @@
 
 {% block style %}
     {{ super() }}
-    <style>
-        body {
-            padding-top: 40px;
-            padding-bottom: 40px;
-            background-color: #c6c9d2;
-        }
-
-        .form-login, .form-register {
-            max-width: 330px;
-            padding: 15px;
-            margin: 0 auto;
-        }
-
-        .form-login .form-login-heading,
-        .form-login .checkbox {
-            margin-bottom: 10px;
-        }
-
-        .form-signin .checkbox {
-            font-weight: normal;
-        }
-
-        .form-login .form-control {
-            position: relative;
-            height: auto;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-            padding: 10px;
-            font-size: 16px;
-        }
-
-        .form-signin .form-control:focus {
-            z-index: 2;
-        }
-
-        .form-signin input[type="email"] {
-            margin-bottom: -1px;
-            border-bottom-right-radius: 0;
-            border-bottom-left-radius: 0;
-        }
-
-        .form-signin input[type="password"] {
-            margin-bottom: 10px;
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
-        }
-
-    </style>
+    <link rel="stylesheet" href="/static/css/login.css">
 {% endblock %}
 
 {% block navbar %}
@@ -78,7 +30,7 @@
             <div class="mesage-show">
                 <p id="id-error-message" class="alert-danger"></p>
             </div>
-            <button id="id-button-login" class="btn btn-lg btn-primary btn-block">Login in</button>
+            <button id="id-button-login" class="btn btn-lg btn-primary btn-block btn-login">Login in</button>
             <button id="id-button-toggle" class="btn btn-lg btn-primary btn-block to-register">切换注册</button>
         </div>
     </div>

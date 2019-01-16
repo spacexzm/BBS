@@ -4,24 +4,24 @@
 set -ex
 
 # 系统设置
-apt-get install -y curl ufw
+# apt-get install -y curl ufw
 # sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-ufw allow 22
-ufw allow 80
-ufw allow 443
-ufw allow 465
-ufw default deny incoming
-ufw default allow outgoing
-ufw status verbose
-ufw -f enable
+# ufw allow 22
+# ufw allow 80
+# ufw allow 443
+# ufw allow 465
+# ufw default deny incoming
+# ufw default allow outgoing
+# ufw status verbose
+# ufw -f enable
 
 # 装依赖
 #apt-get install -y git supervisor nginx redis-server python3-pip
 #pip3 install jinja2 flask gevent gunicorn pymysql flask_sqlalchemy flask_mail redis
 #apt-get install -y mysql-server
 
-apt-get install -y nginx redis-server
-pip3 install redis gevent
+# apt-get install -y nginx redis-server
+# pip3 install redis gevent
 
 # 设置密码 testtest
 # mysql -e "UPDATE mysql.user SET authentication_string=PASSWORD('testtest') WHERE User='root';"
@@ -36,16 +36,16 @@ pip3 install redis gevent
 # mysql -e "FLUSH PRIVILEGES;"
 
 # 删掉 nginx default 设置
-rm -f /etc/nginx/sites-enabled/default
-rm -f /etc/nginx/sites-available/default
+# rm -f /etc/nginx/sites-enabled/default
+# rm -f /etc/nginx/sites-available/default
 
-cp /var/www/web19/web19.conf /etc/supervisor/conf.d/web19.conf
+cp /var/www/BBS/BBS.conf /etc/supervisor/conf.d/BBS.conf
 # 不要再 sites-available 里面放任何东西
-cp /var/www/web19/web19.nginx /etc/nginx/sites-enabled/web19
-chmod -R o+rwx /var/www/web19
+cp /var/www/BBS/BBS.nginx /etc/nginx/sites-enabled/BBS
+chmod -R o+rwx /var/www/BBS
 
 # 初始化
-cd /var/www/web19
+cd /var/www/BBS
 python3 reset.py
 
 # 重启服务器
