@@ -44,10 +44,15 @@ def index():
 @main.route("/register", methods=['POST'])
 def register():
     # form = request.args
-    form = request.form.to_dict()
+    form = request.json
     # 用类函数来判断
     u = User.register(form)
-    return redirect(url_for('.index'))
+    if u is None:
+        response = jsonify({'register': False, 'error': '注册失败，用户名已存在'})
+        return response
+    else:
+        response = jsonify({'register': True, 'message': '注册成功，请点击登录'})
+        return response
 
 
 @main.route("/login", methods=['POST'])
