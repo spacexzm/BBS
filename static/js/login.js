@@ -60,6 +60,14 @@ var loginAction = function () {
     var username = input_username.value
     var input_password = e('#id-input-password')
     var password = input_password.value
+    var error_p = e('#id-error-message')
+    if (username.length < 1) {
+        error_p.innerHTML = "用户名不能为空！"
+        return false
+    } else if (password.length < 1) {
+        error_p.innerHTML = "密码不能为空！"
+        return false
+    }
     var form = {
         username: username,
         password: password,
@@ -68,19 +76,26 @@ var loginAction = function () {
         if (action.login) {
             window.location.href = action.path
         } else {
-            var error_p = e('#id-error-message')
             error_p.innerHTML = action.error
         }
     })
 }
 
 var registerAction = function () {
+    var error_p = e('#id-error-message')
     var input_username = e('#id-input-username')
     var username = input_username.value
     var input_password = e('#id-input-password')
     var password = input_password.value
     var input_verify_password = e('#id-input-verify-password')
     var verify_password = input_verify_password.value
+    if (username.length < 4) {
+        error_p.innerHTML = "用户名长度需大于4！"
+        return false
+    } else if (password.length < 4) {
+        error_p.innerHTML = "密码长度需大于4！"
+        return false
+    }
     if (password == verify_password) {
         var form = {
             username: username,
