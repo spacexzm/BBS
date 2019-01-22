@@ -5,9 +5,14 @@
     <title>Title</title>
 </head>
 <body>
-<form method="POST" action={{ url_for(".login") }}>
-    <input type="text" name="user_name" placeholder="user_name">
+<form>
+    <input type="text" name="user_name" placeholder="user_name" pattern="[A-z]{3}">
+    <input type="text" name="user_name" placeholder="user_name" minlength="3">
     <button type="submit">提交</button>
 </form>
+
+
+<input type="text" name="user_name" placeholder="user_name" pattern="[0-9]{3}">
+<input type="text" name="user_name" placeholder="user_name" minlength="3">
 </body>
 </html>

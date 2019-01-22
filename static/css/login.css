@@ -10,6 +10,12 @@ body {
     margin: 0 auto;
 }
 
+.toggle {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
 .form-login .form-login-heading,
 .form-login .checkbox {
     margin-bottom: 10px;

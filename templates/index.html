@@ -15,27 +15,30 @@
 
 {% block main %}
     <div class="container">
-        <div class="form-login">
+        <form class="form-login">
             <h2 class="form-login-heading">Please login in</h2>
             <div class="username-form">
                 <label for="inputUsername" class="sr-only">Username</label>
-                <input type="text" id="id-input-username" class="form-control" placeholder="Username" required="" autofocus="">
+                <input type="text" id="id-input-username"
+                       class="form-control" placeholder="Username"
+                       pattern="[A-z0-9]{3,}" required autofocus>
             </div>
 
             <div class="password-form">
                 <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="id-input-password" class="form-control" placeholder="Password" minlength="3" required="">
+                <input type="password" id="id-input-password"
+                       class="form-control" placeholder="Password"
+                       pattern="[A-z0-9]{3,}" required>
             </div>
 
             <div class="mesage-show">
                 <p id="id-error-message" class="alert-danger"></p>
             </div>
             <button id="id-button-login" class="btn btn-lg btn-primary btn-block btn-login">Login in</button>
+        </form>
+        <div class="toggle">
             <button id="id-button-toggle" class="btn btn-lg btn-primary btn-block to-register">切换注册</button>
         </div>
-    </div>
-    <div class="toggle">
-        <span></span>
     </div>
 {% endblock %}
 
