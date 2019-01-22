@@ -60,22 +60,17 @@ def login():
     print('request in login')
     form = request.json
     u = User.validate_login(form)
-    print('login user <{}>'.format(u))
     if u is None:
         response = jsonify({'login': False, 'error': '登录失败，请检查账号和密码'})
         response.status_code = 401
-        print('flask json response is:', response)
         return response
     else:
         # session 中写入 user_id
         session['user_id'] = u.id
-        # 设置 cookie 有效期为 永久
+        # 设置 cookie 有效期
         session.permanent = True
-        url = url_for('bbs_topic.index')
-        print('redirect:',url)
         response = jsonify({'login': True, 'path': 'topic'})
         response.status_code = 200
-        print(response.status_code)
         return response
 
 

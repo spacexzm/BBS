@@ -1,4 +1,5 @@
 import time
+from datetime import timedelta
 
 from flask import Flask
 # from flask_admin import Admin
@@ -71,26 +72,21 @@ def configured_app():
     db.init_app(app)
     migrate = Migrate(app, db)
 
-    # module = __import__('routes.index')
-    # b = getattr(getattr(module, 'index'), 'blueprint')()
-    # log('index blueprint', b)
-    # app.register_blueprint(b)
-    # log('url map', app.url_map)
-
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=1)
 
     app.template_filter()(count)
     app.template_filter()(format_time)
     app.errorhandler(404)(not_found)
 
-    app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
-    admin = Admin(app, name='web19', template_mode='bootstrap3')
-    user_mv = UserModelView(User, db.session)
-    topic_mv = TopicModelView(Topic, db.session)
-
-    admin.add_view(user_mv)
-    admin.add_view(topic_mv)
-    admin.add_view(ModelView(Board, db.session))
-    admin.add_view(ModelView(Reply, db.session))
+    # app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
+    # admin = Admin(app, name='web19', template_mode='bootstrap3')
+    # user_mv = UserModelView(User, db.session)
+    # topic_mv = TopicModelView(Topic, db.session)
+    #
+    # admin.add_view(user_mv)
+    # admin.add_view(topic_mv)
+    # admin.add_view(ModelView(Board, db.session))
+    # admin.add_view(ModelView(Reply, db.session))
     # admin.add_view(ModelView(Topic, db.session))
     # admin.add_view(ModelView(Reply, db.session))
     # Add administrative views here
