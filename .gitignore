@@ -3,6 +3,7 @@ data
 config.py
 gua.log.txt
 secret.py
+log.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -52,7 +53,7 @@ coverage.xml
 
 # Django stuff:
 *.log
-log.txt
+
 
 # Sphinx documentation
 docs/_build/

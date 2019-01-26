@@ -90,7 +90,7 @@ const registerAction = function () {
     let password = input_password.value
     let input_verify_password = e('#id-input-verify-password')
     let verify_password = input_verify_password.value
-    if (password == verify_password) {
+    if (password === verify_password) {
         let form = {
             username: username,
             password: password,
@@ -132,7 +132,7 @@ const submitRegisterAction = function () {
 
 
 const bindEventContainer = function () {
-    let container = e('.container')
+    let container = e('#id-user-form')
     container.addEventListener('click', function (event) {
         let self = event.target
         if (self.classList.contains('to-register')) {
@@ -146,11 +146,11 @@ const bindEventContainer = function () {
 }
 
 
-
 const toggleLoginRegister = function (template) {
-    let container = e('.container')
+    let container = e('#id-user-form')
     container.innerHTML = template
 }
+
 
 const bindEvents = function () {
     bindEventContainer()
@@ -158,8 +158,10 @@ const bindEvents = function () {
     submitRegisterAction()
 }
 
+
 const __main = function () {
     bindEvents()
 }
+
 
 __main()
