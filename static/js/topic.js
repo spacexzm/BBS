@@ -1,11 +1,11 @@
-var initedEditor = function() {
-    var e = new Editor()
-    var element = $('.editor').get(0)
+const initedEditor = function() {
+    let e = new Editor()
+    let element = $('.editor').get(0)
     e.render(element)
     return e
 }
 
-var __main = function() {
+const __main = function() {
     initedEditor()
 }
 

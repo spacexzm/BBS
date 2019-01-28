@@ -1,7 +1,6 @@
 .idea
 data
 config.py
-gua.log.txt
 secret.py
 log.txt
 

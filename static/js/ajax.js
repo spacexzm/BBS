@@ -1,18 +1,18 @@
-var log = console.log.bind(console)
+const log = console.log.bind(console)
 
-var e = function(selector, parent=document) {
+const e = function(selector, parent=document) {
     return parent.querySelector(selector)
 }
 
-var es = function(selector, parent=document) {
+const es = function(selector, parent=document) {
     return parent.querySelectorAll(selector)
 }
 
 /*
  ajax 函数
 */
-var ajax = function(method, path, data, responseCallback) {
-    var r = new XMLHttpRequest()
+const ajax = function(method, path, data, responseCallback) {
+    let r = new XMLHttpRequest()
     // 设置请求方法和请求地址
     r.open(method, path, true)
     // 设置发送的数据的格式为 application/json
@@ -25,7 +25,7 @@ var ajax = function(method, path, data, responseCallback) {
         if(r.readyState === 4) {
             // r.response 存的就是服务器发过来的放在 HTTP BODY 中的数据
             log('load ajax response', r.response)
-            var json = JSON.parse(r.response)
+            let json = JSON.parse(r.response)
             responseCallback(json)
             log('on last onreadystatechange')
         }
