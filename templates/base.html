@@ -29,7 +29,7 @@
                         <li><a href="{{ url_for('bbs_user.setting') }}">设置</a></li>
                         <li><a href="{{ url_for('index.logout') }}">退出</a></li>
                     {% else %}
-                        <li><a href='/'>登录/注册</a></li>
+                        <li><a href='/'>登录</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -70,7 +70,7 @@
                             <span>Spaceby bbs</span>
                             <div>
                                 您可以
-                                <a href='{{ url_for('index.index') }}'>登录/注册</a>
+                                <a href='{{ url_for('index.index') }}'>登录</a>
                             </div>
                         </div>
                     {% endif %}
