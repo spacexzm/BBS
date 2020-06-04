@@ -14,8 +14,9 @@ from routes import current_user, csrf_required, new_csrf_token
 from models.topic import Topic
 from models.reply import Reply
 from models.user import User
+import redis
 
-
+cache = redis.StrictRedis()
 main = Blueprint('bbs_user', __name__)
 
 @main.route('/<string:username>')
@@ -42,6 +43,7 @@ def user(username):
 
 @main.route('/setting')
 def setting():
+
     u = current_user()
     token = new_csrf_token()
     return render_template('settings.html', user = u, token = token)

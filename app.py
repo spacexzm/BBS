@@ -105,7 +105,7 @@ def configured_app():
 def register_routes(app):
     """
         在 flask 中，模块化路由的功能由 蓝图（Blueprints）提供
-        蓝图可以拥有自己的静态资源路径、模板路径（现在还没涉及）
+        蓝图可以拥有自己的静态资源路径、模板路径
         用法如下
         """
     # 注册蓝图
@@ -128,7 +128,7 @@ if __name__ == '__main__':
     app.jinja_env.auto_reload = True
     app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
     config = dict(
-        debug=False,
+        debug=True,
         host='localhost',
         port=3000,
     )
