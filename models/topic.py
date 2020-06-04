@@ -6,7 +6,9 @@ from models import Model
 from models.base_model import SQLMixin, db
 from models.user import User
 from models.reply import Reply
+import redis
 
+cache = redis.StrictRedis()
 
 class Topic(SQLMixin, db.Model):
     views = Column(Integer, nullable=False, default=0)
@@ -28,6 +30,7 @@ class Topic(SQLMixin, db.Model):
         m.save()
         return m
 
+
     def user(self):
         u = User.one(id=self.user_id)
         return u
@@ -39,3 +42,4 @@ class Topic(SQLMixin, db.Model):
     def reply_count(self):
         count = len(self.replies())
         return count
+

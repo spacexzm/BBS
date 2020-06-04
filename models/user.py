@@ -11,7 +11,6 @@ class User(SQLMixin, db.Model):
     __tablename__ = 'User'
     """
     User 是一个保存用户数据的 model
-    现在只有两个属性 username 和 password
     """
     username = Column(String(50), nullable=False)
     password = Column(String(100), nullable=False)
